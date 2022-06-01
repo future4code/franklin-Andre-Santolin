@@ -1,24 +1,25 @@
-import React, {Component} from 'react'
-import './SecaoComentario.css'
+import React from 'react'
+import styled from 'styled-components'
 
-export class SecaoComentario extends Component {
-	state = {
+const CommentContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+`
 
-	}
-
-	onChangeComentario() {
-
-	}
-
-	render() {
-		return <div className={'comment-container'}>
-			<input
-				className={'input-comentario'}
+const InputComentario = styled.input`
+    width: 100%;
+    margin-right: 5px;
+`
+export function SecaoComentario(props) {
+	return (
+		<CommentContainer>
+			<InputComentario
 				placeholder={'Comentário'}
 				value={''}
-				onChange={this.onChangeComentario}
+				onChange={props.onChangeComentario}
 			/>
-			<button onClick={this.props.aoEnviar}>Enviar</button>
-		</div>
-	}
+			<button onClick={props.aoEnviar}>Enviar</button>
+		</CommentContainer>
+	)
 }

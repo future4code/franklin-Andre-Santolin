@@ -1,5 +1,5 @@
-import React from 'react'
-import './Post.css'
+import React, {useState} from 'react'
+import styled from 'styled-components'
 
 import {IconeComContador} from '../IconeComContador/IconeComContador'
 
@@ -8,35 +8,73 @@ import iconeCoracaoPreto from '../../img/favorite.svg'
 import iconeComentario from '../../img/comment_icon.svg'
 import {SecaoComentario} from '../SecaoComentario/SecaoComentario'
 
-class Post extends React.Component {
-  state = {
+const PostContainer = styled.div`
+  border: 1px solid gray;
+  width: 300px;
+  margin-bottom: 10px;
+`
+
+const PostHeader = styled.div`
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+`
+
+const PostFooter = styled.div`
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  justify-content: space-between;
+`
+
+const UserPhoto = styled.img`
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+`
+
+const PostPhoto = styled.img`
+  width: 100%;
+`
+
+function Post(props){
+  const [state, setState] = useState({
     curtido: false,
     numeroCurtidas: 0,
     comentando: false,
     numeroComentarios: 0
-  }
+  })
 
-  onClickCurtida = () => {
+  const [numeroCurtidas, setnumeroCurtidas] = useState (0)
+  const [curtido, setCurtido] = useState(false)
+  const [comentando, setComentando] = useState(false)
+  const [numeroComentarios, setNumeroComentarios] = useState(0)
+
+  const onClickCurtida = () => {
+    setCurtido(!curtido)
+    setnumeroCurtidas(numeroCurtidas + 1)
     console.log('Curtiu!')
   }
-
-  onClickComentario = () => {
-    this.setState({
-      comentando: !this.state.comentando
-    })
+  
+  const onClickComentario = () => {
+    setComentando(!comentando)
+    if(comentando) {
+      componenteComentario = <SecaoComentario aoEnviar={aoEnviarComentario}/>
+    }
+    console.log(comentando)
+  }
+  
+  const aoEnviarComentario = () => {
+    setComentando(false)
+    setNumeroComentarios(numeroComentarios + 1)
   }
 
-  aoEnviarComentario = () => {
-    this.setState({
-      comentando: false,
-      numeroComentarios: this.state.numeroComentarios + 1
-    })
-  }
+  let iconeCurtida
 
-  render() {
-    let iconeCurtida
-
-    if(this.state.curtido) {
+    if(curtido) {
       iconeCurtida = iconeCoracaoPreto
     } else {
       iconeCurtida = iconeCoracaoBranco
@@ -44,34 +82,36 @@ class Post extends React.Component {
 
     let componenteComentario
 
-    if(this.state.comentando) {
-      componenteComentario = <SecaoComentario aoEnviar={this.aoEnviarComentario}/>
+    if(comentando) {
+      componenteComentario = <SecaoComentario aoEnviar={aoEnviarComentario}/>
     }
 
-    return <div className={'post-container'}>
-      <div className={'post-header'}>
-        <img className={'user-photo'} src={this.props.fotoUsuario} alt={'Imagem do usuario'}/>
-        <p>{this.props.nomeUsuario}</p>
-      </div>
+  return(
+    <PostContainer>
+      <PostHeader>
+        <UserPhoto src={props.fotoUsuario} alt={'Imagem do usuario'}/>
+        <p>{props.nomeUsuario}</p>
+      </PostHeader>
 
-      <img className={'post-photo'} src={this.props.fotoPost} alt={'Imagem do post'}/>
+      <PostPhoto src={props.fotoPost} alt={'Imagem do post'}/>
 
-      <div className={'post-footer'}>
+      <PostFooter>
         <IconeComContador
           icone={iconeCurtida}
-          onClickIcone={this.onClickCurtida}
-          valorContador={this.state.numeroCurtidas}
+          onClickIcone={onClickCurtida}
+          valorContador={numeroCurtidas}
         />
 
         <IconeComContador
           icone={iconeComentario}
-          onClickIcone={this.onClickComentario}
-          valorContador={this.state.numeroComentarios}
+          onClickIcone={onClickComentario}
+          valorContador={numeroComentarios}
         />
-      </div>
+      </PostFooter>
       {componenteComentario}
-    </div>
-  }
+    </PostContainer>
+  )
 }
+
 
 export default Post
