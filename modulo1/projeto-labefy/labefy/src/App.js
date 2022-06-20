@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import styled from 'styled-components'
+import AddPlaylist from './components/AddPlaylist'
+import SearchPlaylist from './components/SearchPlaylist'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const All = styled.div `
+  text-align: center;
+  background-color: black;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+`
+export default class App extends React.Component {
+  state = {
+    pagePlaylist: false,
+    pageCreatePlaylist: true,
+  }
+  
+  onClickListPage = () => {
+    this.setState({
+      pagePlaylist: !false,
+      pageCreatePlaylist: !true,
+    })
+  }
+  onClickCreatePage = () => {
+    this.setState({
+      pagePlaylist: false,
+      pageCreatePlaylist: true,
+    })
+  }
+  render(){
+    const pages = () => {
+      if (this.state.pageCreatePlaylist){
+        return <AddPlaylist onClickListPage={this.onClickListPage}/>
+      }
+      if (this.state.pagePlaylist){
+        return <SearchPlaylist onClickCreatePage={this.onClickCreatePage} />
+      }
+    }
+    
+
+    return (
+      <All>
+        {pages()}
+      </All>
+    )
+  }
 }
-
-export default App;
