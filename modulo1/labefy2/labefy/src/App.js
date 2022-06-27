@@ -1,5 +1,4 @@
 import React from 'react';
-
 import styled from 'styled-components'
 import AddPlaylist from './components/AddPlaylist'
 import SearchPlaylist from './components/SearchPlaylist'
@@ -38,6 +37,7 @@ export default class App extends React.Component {
         return <SearchPlaylist onClickCreatePage={this.onClickCreatePage} />
       }
     }
+    
 
     return (
       <All>
