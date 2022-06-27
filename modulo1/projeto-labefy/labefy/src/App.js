@@ -38,7 +38,6 @@ export default class App extends React.Component {
         return <SearchPlaylist onClickCreatePage={this.onClickCreatePage} />
       }
     }
-    
 
     return (
       <All>
