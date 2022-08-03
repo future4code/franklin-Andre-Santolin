@@ -1,0 +1,20 @@
+{
+  "name": "exercicio3",
+  "version": "1.0.0",
+  "description": "Turma Franklin - Node e package.json - Exercício 3",
+  "main": "exercicio3.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node exercicio3.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/future4code/"
+  },
+  "keywords": [
+    "node",
+    "package.json"
+  ],
+  "author": "Andre Santolin",
+  "license": "SBC"
+}
